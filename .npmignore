@@ -1,0 +1,46 @@
+# Source files
+src/
+test/
+
+# Config files
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+.eslintrc.json
+
+# Lock files (users should use their own)
+pnpm-lock.yaml
+
+# Development files
+node_modules/
+.pnpm/
+
+# IDE
+.vscode/
+.idea/
+
+# Test coverage
+coverage/
+
+# Build artifacts
+*.log
+*.tmp
+.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# CI/CD
+.github/
+
+# Development environment
+.env
+.env.local
+.env.test
+
+# Documentation source
+docs/
+
+# Examples
+examples/
