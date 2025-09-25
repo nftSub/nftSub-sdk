@@ -1,14 +1,14 @@
 <div align="center">
-  <img src="./images/subnFT.svg" alt="NFT Sub Logo" width="200" />
+  <img src="./images/subnFT.svg" alt="nftSub Logo" width="200" />
   
-  # NFT Sub SDK
+  # nftSub SDK
   
-  TypeScript SDK for NFT Sub - The Web3 Subscription Platform. Built with Reactive Network for automated cross-chain subscription management.
+  TypeScript SDK for nftSub - The Web3 Subscription Platform. Built with Reactive Network for automated cross-chain subscription management.
 </div>
 
 ## Overview
 
-NFT Sub SDK provides a complete toolkit for implementing Web3 subscription services on blockchain. It enables merchants to create subscription plans, accept recurring payments, and issue NFT-based subscription tokens that serve as access passes.
+nftSub SDK provides a complete toolkit for implementing Web3 subscription services on blockchain. It enables merchants to create subscription plans, accept recurring payments, and issue NFT-based subscription tokens that serve as access passes.
 
 Built on top of the [nftSub Smart Contracts](../nftSub-contracts/), this SDK provides a seamless integration layer for developers to implement subscription functionality in their applications.
 
@@ -283,7 +283,7 @@ sdk.reactive.watchReactiveEvents({
 
 ## React Components
 
-NFT Sub SDK includes pre-built React components for rapid integration.
+nftSub SDK includes pre-built React components for rapid integration.
 
 ### SubscribeButton
 
@@ -868,8 +868,8 @@ MIT
 
 For issues and feature requests, please open an issue on [GitHub](https://github.com/nft-sub/sdk).
 
-## About NFT Sub
+## About nftSub
 
-NFT Sub is the leading Web3 subscription platform, enabling merchants to accept recurring payments and issue NFT-based access tokens. Built on Ethereum with Reactive Network integration for seamless cross-chain operations.
+nftSub is the leading Web3 subscription platform, enabling merchants to accept recurring payments and issue NFT-based access tokens. Built on Ethereum with Reactive Network integration for seamless cross-chain operations.
 
 Visit [nft-sub.com](https://nft-sub.com) to learn more.
