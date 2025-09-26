@@ -7,8 +7,10 @@ import {
 } from 'viem';
 
 // Core SDK Types
+export type SupportedChain = 'base' | 'bsc' | 'avalanche' | 'sonic' | 'sepolia';
+
 export interface SDKConfig {
-  chain: 'sepolia' | 'mainnet' | 'polygon' | 'base' | string;
+  chain: SupportedChain | string;
   walletClient?: WalletClient;
   publicClient?: PublicClient;
   privateKey?: string;

@@ -4121,8 +4121,9 @@ declare class ReactiveNetworkService {
     }): bigint;
 }
 
+type SupportedChain = 'base' | 'bsc' | 'avalanche' | 'sonic' | 'sepolia';
 interface SDKConfig {
-    chain: 'sepolia' | 'mainnet' | 'polygon' | 'base' | string;
+    chain: SupportedChain | string;
     walletClient?: WalletClient;
     publicClient?: PublicClient;
     privateKey?: string;
@@ -4378,4 +4379,4 @@ declare class SubscriptionSDK extends EventEmitter {
     parseAmount(amount: string, decimals?: number): bigint;
 }
 
-export { AnalyticsService as A, SDKError as B, CHAIN_CONFIGS as C, EventMonitoringService as E, MerchantService as M, NFTService as N, type PaymentEvent as P, ReactiveNetworkService as R, SubscriptionSDK as S, TokenService as T, getExplorerUrl as a, getAddressExplorerUrl as b, type MerchantPlan as c, SubscriptionService as d, AdminService as e, type SDKConfig as f, getChainConfig as g, type SubscriptionStatus as h, type SubscribeParams as i, type SubscribeResult as j, type Merchant as k, type MerchantRegistrationParams as l, type MerchantPriceParams as m, type Token as n, type TokenBalance as o, type EventCallback as p, type EventListeners as q, type SubscriptionMintedEvent as r, type SubscriptionRenewedEvent as s, type SubscriptionExpiredEvent as t, type MerchantRegisteredEvent as u, type MerchantWithdrawalEvent as v, type PlatformMetrics as w, type MerchantAnalytics as x, type NFTMetadata as y, SDKErrorCode as z };
+export { AnalyticsService as A, SDKErrorCode as B, CHAIN_CONFIGS as C, SDKError as D, EventMonitoringService as E, MerchantService as M, NFTService as N, type PaymentEvent as P, ReactiveNetworkService as R, SubscriptionSDK as S, TokenService as T, getExplorerUrl as a, getAddressExplorerUrl as b, type MerchantPlan as c, SubscriptionService as d, AdminService as e, type SupportedChain as f, getChainConfig as g, type SDKConfig as h, type SubscriptionStatus as i, type SubscribeParams as j, type SubscribeResult as k, type Merchant as l, type MerchantRegistrationParams as m, type MerchantPriceParams as n, type Token as o, type TokenBalance as p, type EventCallback as q, type EventListeners as r, type SubscriptionMintedEvent as s, type SubscriptionRenewedEvent as t, type SubscriptionExpiredEvent as u, type MerchantRegisteredEvent as v, type MerchantWithdrawalEvent as w, type PlatformMetrics as x, type MerchantAnalytics as y, type NFTMetadata as z };

@@ -28,18 +28,39 @@ pnpm add @nft-sub/sdk
 yarn add @nft-sub/sdk
 ```
 
+## Supported Networks
+
+### Mainnet
+- **Base** (Chain ID: 8453) - Ethereum L2
+- **BSC** (Chain ID: 56) - Binance Smart Chain
+- **Avalanche** (Chain ID: 43114) - Avalanche C-Chain
+- **Sonic** (Chain ID: 146) - Sonic Mainnet
+
+### Testnet
+- **Sepolia** (Chain ID: 11155111) - Ethereum Testnet
+
+All mainnet deployments use the same contract addresses thanks to CREATE2:
+- SubscriptionManager: `0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c`
+- SubscriptionNFT: `0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8`
+
 ## Quick Start
 
 ```typescript
 import { SubscriptionSDK } from '@nft-sub/sdk';
 
-// Frontend
+// Frontend - Mainnet
 const sdk = new SubscriptionSDK({
-  chain: 'sepolia',
+  chain: 'base', // or 'bsc', 'avalanche', 'sonic'
   walletClient // auto-detects if omitted
 });
 
-// Backend
+// Backend - Mainnet
+const sdk = new SubscriptionSDK({
+  chain: 'base',
+  privateKey: process.env.PRIVATE_KEY
+});
+
+// Testnet
 const sdk = new SubscriptionSDK({
   chain: 'sepolia',
   privateKey: process.env.PRIVATE_KEY
@@ -47,7 +68,7 @@ const sdk = new SubscriptionSDK({
 
 // Read-only
 const sdk = new SubscriptionSDK({
-  chain: 'sepolia',
+  chain: 'base',
   readOnly: true
 });
 ```

@@ -46,13 +46,53 @@ export const MONITORING = {
   CONFIRMATION_BLOCKS: 2 // Blocks to wait for confirmation
 } as const;
 
-// Reactive Network specific
+// Reactive Network
 export const REACTIVE_NETWORK = {
-  CHAIN_ID: 10672,
-  RPC_URL: 'https://lasna-rpc.rnk.dev/',
-  EXPLORER_URL: 'https://reactive-explorer.rnk.dev/',
-  NATIVE_SYMBOL: 'REACT',
-  SUBSCRIPTION_FEE: '0.001' // in REACT tokens
+  TESTNET: {
+    CHAIN_ID: 10672,
+    RPC_URL: 'https://lasna-rpc.rnk.dev/',
+    EXPLORER_URL: 'https://reactive-explorer.rnk.dev/',
+    NATIVE_SYMBOL: 'REACT',
+    SUBSCRIPTION_FEE: '0.001' // in REACT tokens
+  },
+  MAINNET: {
+    CHAIN_ID: 1597,
+    RPC_URL: 'https://mainnet-rpc.rnk.dev/',
+    EXPLORER_URL: 'https://reactive-explorer.rnk.dev/',
+    NATIVE_SYMBOL: 'RNK'
+  }
+} as const;
+
+// Mainnet chains
+export const MAINNET_CHAINS = {
+  BASE: {
+    CHAIN_ID: 8453,
+    RPC_URL: 'https://mainnet.base.org',
+    EXPLORER_URL: 'https://basescan.org/',
+    NATIVE_SYMBOL: 'ETH',
+    CALLBACK_PROXY: '0x0D3E76De6bC44309083cAAFdB49A088B8a250947' as Address
+  },
+  BSC: {
+    CHAIN_ID: 56,
+    RPC_URL: 'https://bsc-dataseed1.binance.org',
+    EXPLORER_URL: 'https://bscscan.com/',
+    NATIVE_SYMBOL: 'BNB',
+    CALLBACK_PROXY: '0xdb81A196A0dF9Ef974C9430495a09B6d535fAc48' as Address
+  },
+  AVALANCHE: {
+    CHAIN_ID: 43114,
+    RPC_URL: 'https://api.avax.network/ext/bc/C/rpc',
+    EXPLORER_URL: 'https://snowtrace.io/',
+    NATIVE_SYMBOL: 'AVAX',
+    CALLBACK_PROXY: '0x934Ea75496562D4e83E80865c33dbA600644fCDa' as Address
+  },
+  SONIC: {
+    CHAIN_ID: 146,
+    RPC_URL: 'https://rpc.soniclabs.com',
+    EXPLORER_URL: 'https://sonicscan.org/',
+    NATIVE_SYMBOL: 'S',
+    CALLBACK_PROXY: '0x9299472a6399fd1027ebf067571eb3e3d7837fc4' as Address
+  }
 } as const;
 
 // Sepolia testnet

@@ -18,6 +18,48 @@ export interface ChainConfig {
 }
 
 export const CHAIN_CONFIGS: Record<string, ChainConfig> = {
+  // Mainnet Chains
+  base: {
+    chainId: 8453,
+    name: 'Base',
+    rpc: 'https://mainnet.base.org',
+    explorer: 'https://basescan.org',
+    contracts: {
+      subscriptionManager: '0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c',
+      subscriptionNFT: '0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8'
+    }
+  },
+  bsc: {
+    chainId: 56,
+    name: 'BSC',
+    rpc: 'https://bsc-dataseed1.binance.org',
+    explorer: 'https://bscscan.com',
+    contracts: {
+      subscriptionManager: '0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c',
+      subscriptionNFT: '0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8'
+    }
+  },
+  avalanche: {
+    chainId: 43114,
+    name: 'Avalanche C-Chain',
+    rpc: 'https://api.avax.network/ext/bc/C/rpc',
+    explorer: 'https://snowtrace.io',
+    contracts: {
+      subscriptionManager: '0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c',
+      subscriptionNFT: '0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8'
+    }
+  },
+  sonic: {
+    chainId: 146,
+    name: 'Sonic',
+    rpc: 'https://rpc.soniclabs.com',
+    explorer: 'https://sonicscan.org',
+    contracts: {
+      subscriptionManager: '0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c',
+      subscriptionNFT: '0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8'
+    }
+  },
+  // Testnet
   sepolia: {
     chainId: 11155111,
     name: 'Sepolia',

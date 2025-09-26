@@ -1,6 +1,6 @@
 {
   "name": "@nft-sub/sdk",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "TypeScript SDK for nftSub - The Web3 Subscription Platform",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -20,11 +20,16 @@
     "subscription",
     "nft",
     "ethereum",
+    "base",
+    "bsc",
+    "avalanche",
+    "sonic",
     "reactive",
     "web3",
     "sdk",
     "recurring-payments",
-    "defi"
+    "defi",
+    "cross-chain"
   ],
   "author": "nftSub Team",
   "homepage": "https://github.com/nft-sub/sdk",
