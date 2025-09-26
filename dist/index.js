@@ -2350,7 +2350,7 @@ var MerchantService = class {
     });
   }
   /**
-   * Register a new merchant on the platform
+   * Register a new merchant on the platform (on-chain only)
    */
   async registerMerchant(params) {
     if (!this.walletClient) throw new Error("Wallet not connected");
@@ -2362,6 +2362,43 @@ var MerchantService = class {
     const receipt = await this.publicClient.waitForTransactionReceipt({ hash });
     const merchantId = this.extractMerchantIdFromReceipt(receipt);
     return { hash, merchantId };
+  }
+  /**
+   * Register merchant with complete profile (on-chain + metadata)
+   * New in v2: Includes off-chain metadata storage
+   */
+  async registerMerchantWithMetadata(params) {
+    const { hash, merchantId } = await this.registerMerchant({
+      payoutAddress: params.payoutAddress,
+      subscriptionPeriod: params.subscriptionPeriod,
+      gracePeriod: params.gracePeriod
+    });
+    let metadataStored = false;
+    if (merchantId) {
+      try {
+        const baseUrl = params.metadataApiUrl || (typeof window !== "undefined" ? window.location.origin : "https://nft-sub.vercel.app");
+        const metadataUrl = `${baseUrl}/api/merchant/register`;
+        const response = await fetch(metadataUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            merchantId: merchantId.toString(),
+            name: params.name,
+            description: params.description || "",
+            logo: params.logo || null
+          })
+        });
+        metadataStored = response.ok;
+        if (!response.ok) {
+          console.error("Failed to store merchant metadata:", await response.text());
+        }
+      } catch (error) {
+        console.error("Error storing merchant metadata:", error);
+      }
+    }
+    return { hash, merchantId, metadataStored };
   }
   /**
    * Update existing merchant plan configuration
@@ -2550,6 +2587,61 @@ var MerchantService = class {
       registrations: registrationLogs,
       withdrawals: withdrawalLogs
     };
+  }
+  /**
+   * Get merchant metadata (off-chain data)
+   * New in v2
+   */
+  async getMerchantMetadata(merchantId, metadataApiUrl) {
+    try {
+      const baseUrl = metadataApiUrl || (typeof window !== "undefined" ? window.location.origin : "https://nft-sub.vercel.app");
+      const url = `${baseUrl}/api/merchant/register?merchantId=${merchantId}`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        return null;
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching merchant metadata:", error);
+      return null;
+    }
+  }
+  /**
+   * Update merchant metadata (off-chain data only)
+   * New in v2
+   */
+  async updateMerchantMetadata(params) {
+    try {
+      const baseUrl = params.metadataApiUrl || (typeof window !== "undefined" ? window.location.origin : "https://nft-sub.vercel.app");
+      const url = `${baseUrl}/api/merchant/register`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          merchantId: params.merchantId.toString(),
+          name: params.name,
+          description: params.description || "",
+          logo: params.logo || null
+        })
+      });
+      return response.ok;
+    } catch (error) {
+      console.error("Error updating merchant metadata:", error);
+      return false;
+    }
+  }
+  /**
+   * Get complete merchant information (on-chain + metadata)
+   * New in v2
+   */
+  async getMerchantComplete(merchantId) {
+    const [onChain, metadata] = await Promise.all([
+      this.getMerchantPlan(merchantId).catch(() => null),
+      this.getMerchantMetadata(merchantId)
+    ]);
+    return { onChain, metadata };
   }
   /**
    * Extract merchant ID from transaction receipt

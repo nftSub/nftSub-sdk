@@ -19,7 +19,7 @@ declare class MerchantService {
     private contract;
     constructor(publicClient: PublicClient, walletClient?: WalletClient | undefined);
     /**
-     * Register a new merchant on the platform
+     * Register a new merchant on the platform (on-chain only)
      */
     registerMerchant(params: {
         payoutAddress: Address;
@@ -28,6 +28,23 @@ declare class MerchantService {
     }): Promise<{
         hash: Hash;
         merchantId?: bigint;
+    }>;
+    /**
+     * Register merchant with complete profile (on-chain + metadata)
+     * New in v2: Includes off-chain metadata storage
+     */
+    registerMerchantWithMetadata(params: {
+        payoutAddress: Address;
+        subscriptionPeriod: number;
+        gracePeriod: number;
+        name: string;
+        description?: string;
+        logo?: string;
+        metadataApiUrl?: string;
+    }): Promise<{
+        hash: Hash;
+        merchantId?: bigint;
+        metadataStored: boolean;
     }>;
     /**
      * Update existing merchant plan configuration
@@ -924,6 +941,37 @@ declare class MerchantService {
                 readonly internalType: "address";
             }];
         }], "MerchantWithdrawal", undefined, "earliest", undefined>;
+    }>;
+    /**
+     * Get merchant metadata (off-chain data)
+     * New in v2
+     */
+    getMerchantMetadata(merchantId: bigint, metadataApiUrl?: string): Promise<{
+        merchantId: string;
+        name: string;
+        description: string;
+        logo: string | null;
+        createdAt?: string;
+        updatedAt?: string;
+    } | null>;
+    /**
+     * Update merchant metadata (off-chain data only)
+     * New in v2
+     */
+    updateMerchantMetadata(params: {
+        merchantId: bigint;
+        name: string;
+        description?: string;
+        logo?: string;
+        metadataApiUrl?: string;
+    }): Promise<boolean>;
+    /**
+     * Get complete merchant information (on-chain + metadata)
+     * New in v2
+     */
+    getMerchantComplete(merchantId: bigint): Promise<{
+        onChain: MerchantPlan | null;
+        metadata: any | null;
     }>;
     /**
      * Extract merchant ID from transaction receipt

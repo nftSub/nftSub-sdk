@@ -8,19 +8,15 @@
 
 ## Overview
 
-nftSub SDK provides a complete toolkit for implementing Web3 subscription services on blockchain. It enables merchants to create subscription plans, accept recurring payments, and issue NFT-based subscription tokens that serve as access passes.
-
-Built on top of the [nftSub Smart Contracts](../nftSub-contracts/), this SDK provides a seamless integration layer for developers to implement subscription functionality in their applications.
+TypeScript SDK for Web3 subscriptions using ERC-1155 NFTs. Handles merchant registration, subscription management, and automated renewals via Reactive Network.
 
 ## Features
 
-- **ERC-1155 Based Subscriptions**: Each subscription is an NFT that can be transferred or traded
-- **Multiple Payment Tokens**: Support for ETH and ERC-20 tokens
-- **Automated Renewals**: Reactive Network integration for automatic subscription management
-- **Merchant Management**: Complete merchant registration and revenue management
-- **Analytics**: Built-in analytics for tracking subscriptions and revenue
-- **Event Monitoring**: Real-time event tracking for all subscription activities
-- **TypeScript First**: Full type safety and IntelliSense support
+- ERC-1155 NFT subscriptions
+- Multi-token payments (ETH, ERC-20)
+- Automated renewals via Reactive Network
+- Merchant metadata support (v2)
+- TypeScript with full type safety
 
 ## Installation
 
@@ -34,79 +30,25 @@ yarn add @nft-sub/sdk
 
 ## Quick Start
 
-### Basic Setup
-
-The SDK supports multiple initialization methods depending on your use case:
-
-#### Frontend (Browser with Wallet)
-
 ```typescript
 import { SubscriptionSDK } from '@nft-sub/sdk';
-import { createWalletClient, custom } from 'viem';
 
-// Using browser wallet (MetaMask, WalletConnect, etc.)
-const walletClient = createWalletClient({
-  transport: custom(window.ethereum)
-});
-
+// Frontend
 const sdk = new SubscriptionSDK({
   chain: 'sepolia',
-  walletClient // Pass the wallet client
+  walletClient // auto-detects if omitted
 });
 
-// The SDK will auto-detect browser wallets if not provided
-const sdkAutoDetect = new SubscriptionSDK({
-  chain: 'sepolia'
-  // Will automatically use window.ethereum if available
-});
-```
-
-#### Backend (Server with Private Key)
-
-```typescript
-import { SubscriptionSDK } from '@nft-sub/sdk';
-
-// Initialize with private key for automated operations
+// Backend
 const sdk = new SubscriptionSDK({
   chain: 'sepolia',
   privateKey: process.env.PRIVATE_KEY
 });
-```
 
-#### Read-Only Mode
-
-```typescript
-// Initialize SDK in read-only mode (no wallet needed)
+// Read-only
 const sdk = new SubscriptionSDK({
   chain: 'sepolia',
   readOnly: true
-});
-```
-
-#### Custom RPC & Clients
-
-```typescript
-import { createPublicClient, createWalletClient, http } from 'viem';
-
-// Use custom RPC endpoint
-const sdk = new SubscriptionSDK({
-  chain: 'sepolia',
-  rpc: 'https://your-custom-rpc.com'
-});
-
-// Or provide your own viem clients
-const publicClient = createPublicClient({
-  transport: http('https://your-rpc.com')
-});
-
-const walletClient = createWalletClient({
-  transport: custom(window.ethereum)
-});
-
-const sdk = new SubscriptionSDK({
-  chain: 'sepolia',
-  publicClient,
-  walletClient
 });
 ```
 
@@ -140,22 +82,60 @@ console.log('Expires at:', new Date(Number(status.expiresAt) * 1000));
 
 ## Merchant Operations
 
-### Register as Merchant
+### Register as Merchant (v2 with Metadata Support)
 
 ```typescript
-const merchantId = await sdk.merchants.registerMerchant({
-  name: 'Premium Service',
-  description: 'Access to premium features',
-  imageUrl: 'https://example.com/logo.png',
-  externalUrl: 'https://example.com',
-  paymentTokens: [
-    {
-      address: '0x0000000000000000000000000000000000000000', // ETH
-      price: '0.01',
-      decimals: 18
-    }
-  ]
+// Method 1: Register with metadata (recommended)
+const { hash, merchantId, metadataStored } = await sdk.merchants.registerMerchantWithMetadata({
+  // On-chain parameters
+  payoutAddress: '0x...', // Address to receive subscription payments
+  subscriptionPeriod: 2592000, // 30 days in seconds
+  gracePeriod: 604800, // 7 days grace period before NFT can be burned
+  
+  // Off-chain metadata (stored in Vercel KV/Redis)
+  name: 'My Business Name',
+  description: 'Premium subscription service for...',
+  logo: 'data:image/png;base64,...' // Base64 encoded image (max 500KB)
 });
+
+console.log('Merchant ID:', merchantId);
+console.log('Metadata stored:', metadataStored);
+
+// Method 2: Register on-chain only (if handling metadata separately)
+const { hash, merchantId } = await sdk.merchants.registerMerchant({
+  payoutAddress: '0x...', 
+  subscriptionPeriod: 2592000,
+  gracePeriod: 604800
+});
+
+// After registration, set prices for accepted payment tokens
+await sdk.merchants.setMerchantPrice({
+  merchantId,
+  paymentToken: '0x0000000000000000000000000000000000000000', // ETH
+  price: '0.01' // Price in ETH
+});
+```
+
+### Manage Merchant Metadata (v2)
+
+```typescript
+// Get merchant metadata
+const metadata = await sdk.merchants.getMerchantMetadata(merchantId);
+console.log('Merchant name:', metadata?.name);
+console.log('Description:', metadata?.description);
+
+// Update merchant metadata
+const updated = await sdk.merchants.updateMerchantMetadata({
+  merchantId,
+  name: 'Updated Business Name',
+  description: 'New description',
+  logo: 'data:image/png;base64,...' // New logo
+});
+
+// Get complete merchant info (on-chain + metadata)
+const complete = await sdk.merchants.getMerchantComplete(merchantId);
+console.log('On-chain data:', complete.onChain);
+console.log('Metadata:', complete.metadata);
 ```
 
 ### Manage Merchant Revenue
@@ -204,6 +184,20 @@ const txHash = await sdk.nfts.safeTransferFrom({
 ```typescript
 const metadata = await sdk.nfts.getFullMetadata(userAddress, merchantId);
 console.log('Subscription NFT:', metadata);
+
+// Note: NFT metadata is dynamically generated based on merchant registration
+// The metadata URI follows the pattern:
+// https://nft-sub.vercel.app/api/metadata/{chainId}/{tokenId}
+// Where tokenId equals the merchantId in this system
+// 
+// Metadata includes:
+// - Merchant name and description (from merchant registration)
+// - Merchant logo (if provided)
+// - Subscription status and attributes
+// - OpenSea-compatible format for marketplace display
+//
+// If merchant hasn't registered metadata, the API returns a 404 error
+// prompting them to complete registration at /merchant/setup/{merchantId}
 ```
 
 ## Event Monitoring
@@ -635,11 +629,24 @@ The SDK exposes the following services with their key methods:
 
 #### sdk.merchants - Merchant Management
 ```typescript
-// Register new merchant
+// Register merchant with metadata (v2 - recommended)
+sdk.merchants.registerMerchantWithMetadata({
+  // On-chain parameters
+  payoutAddress: Address,       
+  subscriptionPeriod: number,   
+  gracePeriod: number,
+  // Off-chain metadata
+  name: string,
+  description?: string,
+  logo?: string,                // Base64 encoded image or URL
+  metadataApiUrl?: string       // Optional custom API URL
+}): Promise<{hash: Hash, merchantId?: bigint, metadataStored: boolean}>
+
+// Register new merchant (on-chain data only)
 sdk.merchants.registerMerchant({
-  payoutAddress: Address,
-  subscriptionPeriod: number,  // seconds
-  gracePeriod: number          // seconds
+  payoutAddress: Address,       
+  subscriptionPeriod: number,   
+  gracePeriod: number          
 }): Promise<{hash: Hash, merchantId?: bigint}>
 
 // Update merchant plan
@@ -667,6 +674,34 @@ sdk.merchants.withdrawMerchantBalance({
   merchantId: bigint,
   token: Address
 }): Promise<Hash>
+
+// Metadata operations (v2)
+sdk.merchants.getMerchantMetadata(
+  merchantId: bigint,
+  metadataApiUrl?: string
+): Promise<{
+  merchantId: string,
+  name: string,
+  description: string,
+  logo: string | null,
+  createdAt?: string,
+  updatedAt?: string
+} | null>
+
+sdk.merchants.updateMerchantMetadata({
+  merchantId: bigint,
+  name: string,
+  description?: string,
+  logo?: string,
+  metadataApiUrl?: string
+}): Promise<boolean>
+
+sdk.merchants.getMerchantComplete(
+  merchantId: bigint
+): Promise<{
+  onChain: MerchantPlan | null,
+  metadata: any | null
+}>
 ```
 
 #### sdk.subscriptions - Subscription Operations
@@ -859,6 +894,33 @@ Build the SDK:
 ```bash
 npm run build
 ```
+
+## Changelog
+
+### v2.0.0 (Latest)
+- **Merchant Metadata Support**: New methods for storing and managing merchant information off-chain
+  - `registerMerchantWithMetadata()` - Register with both on-chain and off-chain data
+  - `getMerchantMetadata()` - Retrieve merchant profile information
+  - `updateMerchantMetadata()` - Update merchant profile
+  - `getMerchantComplete()` - Get combined on-chain and off-chain data
+- **NFT Metadata Integration**: Dynamic NFT metadata generation based on merchant profiles
+  - Automatic merchant branding in NFT metadata
+  - OpenSea-compatible format
+  - Error messages for unregistered merchants
+- **Storage Backend**: Vercel KV (Upstash Redis) integration for production deployments
+  - Automatic fallback to in-memory storage for development
+  - Environment-aware API endpoint resolution
+- **Image Support**: Base64 image upload with compression
+  - 500KB file size limit
+  - Automatic image optimization
+  - Support for JPG, PNG, GIF, WebP, SVG
+
+### v1.0.0
+- Initial release with core subscription functionality
+- ERC-1155 based subscription NFTs
+- Multi-token payment support
+- Reactive Network integration
+- React components and hooks
 
 ## License
 
