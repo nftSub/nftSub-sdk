@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2025-09-27
+
+### Added
+- **Production Mainnet Deployment**: Contracts are now LIVE on all supported mainnets
+- **Reactive Network Mainnet**: Full mainnet configuration and integration
+- **Enhanced Chain Support**: Complete mainnet configurations for Base, BSC, Avalanche, and Sonic
+- **ReactScan Explorer Integration**: Updated all explorer URLs to official ReactScan domains
+  - Testnet: `https://lasna.reactscan.net/`
+  - Mainnet: `https://reactscan.net/`
+
+### Changed
+- Bumped version for production mainnet release
+- Updated all chain configurations with verified mainnet contracts
+- Enhanced Reactive Network configuration for both testnet and mainnet
+- Improved documentation with mainnet deployment information
+
+### Fixed
+- Corrected all Reactive Network explorer URLs
+- Fixed chain ID for Reactive mainnet (1729)
+- Updated RPC endpoints for production stability
+
 ## [2.1.0] - 2025-09-26
 
 ### Added

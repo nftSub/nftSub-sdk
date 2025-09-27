@@ -1,6 +1,6 @@
 {
   "name": "@nft-sub/sdk",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "TypeScript SDK for nftSub - The Web3 Subscription Platform",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
