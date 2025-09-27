@@ -6,6 +6,22 @@
   TypeScript SDK for nftSub - The Web3 Subscription Platform. Built with Reactive Network for automated cross-chain subscription management.
 </div>
 
+## 🚀 Live on Mainnet!
+
+**nftSub is now deployed and operational on mainnet!** Build production-ready subscription services on Base, BSC, Avalanche, and Sonic.
+
+### Mainnet Deployments
+
+| Network | Contract Addresses | Explorer Links |
+|---------|-------------------|----------------|
+| **Base** | Manager: [`0x99ad42b...`](https://basescan.org/address/0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c)<br/>NFT: [`0x6D4b8BC...`](https://basescan.org/address/0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8) | [BaseScan](https://basescan.org) |
+| **BSC** | Manager: [`0x99ad42b...`](https://bscscan.com/address/0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c)<br/>NFT: [`0x6D4b8BC...`](https://bscscan.com/address/0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8) | [BscScan](https://bscscan.com) |
+| **Avalanche** | Manager: [`0x99ad42b...`](https://snowtrace.io/address/0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c)<br/>NFT: [`0x6D4b8BC...`](https://snowtrace.io/address/0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8) | [SnowTrace](https://snowtrace.io) |
+| **Sonic** | Manager: [`0x99ad42b...`](https://sonicscan.org/address/0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c)<br/>NFT: [`0x6D4b8BC...`](https://sonicscan.org/address/0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8) | [SonicScan](https://sonicscan.org) |
+| **Reactive** | Automation: [`0x99ad42b...`](https://reactscan.net/address/0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c) | [ReactScan](https://reactscan.net) |
+
+All chains use the same addresses thanks to CREATE2 deployment!
+
 ## Overview
 
 TypeScript SDK for Web3 subscriptions using ERC-1155 NFTs. Handles merchant registration, subscription management, and automated renewals via Reactive Network.
@@ -30,18 +46,21 @@ yarn add @nft-sub/sdk
 
 ## Supported Networks
 
-### Mainnet
-- **Base** (Chain ID: 8453) - Ethereum L2
-- **BSC** (Chain ID: 56) - Binance Smart Chain
-- **Avalanche** (Chain ID: 43114) - Avalanche C-Chain
-- **Sonic** (Chain ID: 146) - Sonic Mainnet
+### Mainnet (Production Ready)
+- **Base** (Chain ID: 8453) - Ethereum L2 - [Explorer](https://basescan.org)
+- **BSC** (Chain ID: 56) - Binance Smart Chain - [Explorer](https://bscscan.com)
+- **Avalanche** (Chain ID: 43114) - Avalanche C-Chain - [Explorer](https://snowtrace.io)
+- **Sonic** (Chain ID: 146) - Sonic Mainnet - [Explorer](https://sonicscan.org)
+- **Reactive Network** - Cross-chain automation - [Explorer](https://reactscan.net)
 
 ### Testnet
 - **Sepolia** (Chain ID: 11155111) - Ethereum Testnet
 
-All mainnet deployments use the same contract addresses thanks to CREATE2:
+### Contract Addresses
+**Mainnet (all chains - same addresses via CREATE2):**
 - SubscriptionManager: `0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c`
 - SubscriptionNFT: `0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8`
+- Reactive Automation: `0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c`
 
 ## Quick Start
 

@@ -5230,6 +5230,11 @@ var CHAIN_CONFIGS = {
     contracts: {
       subscriptionManager: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c",
       subscriptionNFT: "0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8"
+    },
+    reactive: {
+      chainId: 1729,
+      rpc: "https://mainnet-rpc.rnk.dev/",
+      contract: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c"
     }
   },
   bsc: {
@@ -5240,6 +5245,11 @@ var CHAIN_CONFIGS = {
     contracts: {
       subscriptionManager: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c",
       subscriptionNFT: "0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8"
+    },
+    reactive: {
+      chainId: 1729,
+      rpc: "https://mainnet-rpc.rnk.dev/",
+      contract: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c"
     }
   },
   avalanche: {
@@ -5250,6 +5260,11 @@ var CHAIN_CONFIGS = {
     contracts: {
       subscriptionManager: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c",
       subscriptionNFT: "0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8"
+    },
+    reactive: {
+      chainId: 1729,
+      rpc: "https://mainnet-rpc.rnk.dev/",
+      contract: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c"
     }
   },
   sonic: {
@@ -5260,6 +5275,21 @@ var CHAIN_CONFIGS = {
     contracts: {
       subscriptionManager: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c",
       subscriptionNFT: "0x6D4b8BC4613dDCB98450a97b297294BacBd2DDD8"
+    },
+    reactive: {
+      chainId: 1729,
+      rpc: "https://mainnet-rpc.rnk.dev/",
+      contract: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c"
+    }
+  },
+  reactive: {
+    chainId: 1729,
+    name: "Reactive Network",
+    rpc: "https://mainnet-rpc.rnk.dev/",
+    explorer: "https://reactscan.net",
+    contracts: {
+      subscriptionManager: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c",
+      subscriptionNFT: "0x99ad42b29a7a99Ee4552cf6dc36dc4d44d8b0A2c"
     }
   },
   // Testnet

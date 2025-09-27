@@ -51,14 +51,14 @@ export const REACTIVE_NETWORK = {
   TESTNET: {
     CHAIN_ID: 10672,
     RPC_URL: 'https://lasna-rpc.rnk.dev/',
-    EXPLORER_URL: 'https://reactive-explorer.rnk.dev/',
+    EXPLORER_URL: 'https://lasna.reactscan.net/',
     NATIVE_SYMBOL: 'REACT',
     SUBSCRIPTION_FEE: '0.001' // in REACT tokens
   },
   MAINNET: {
     CHAIN_ID: 1597,
     RPC_URL: 'https://mainnet-rpc.rnk.dev/',
-    EXPLORER_URL: 'https://reactive-explorer.rnk.dev/',
+    EXPLORER_URL: 'https://reactscan.net/',
     NATIVE_SYMBOL: 'RNK'
   }
 } as const;
