@@ -1,12 +1,17 @@
 <div align="center">
-  <img src="./images/nftSub.png" alt="nftSub Logo" width="200" />
+  <img src="https://raw.githubusercontent.com/nftSub/nftSub-sdk/main/images/nftSub.png" alt="nftSub Logo" width="200" />
   
   # nftSub SDK
-  
+
   TypeScript SDK for nftSub - The Web3 Subscription Platform. Built with Reactive Network for automated cross-chain subscription management.
 </div>
 
-## 🚀 Live on Mainnet!
+<img src="https://raw.githubusercontent.com/nftSub/nftSub-sdk/main/images/banner-image.png" alt="nftSub banner image" />
+  
+
+## Live on Mainnet!
+
+<img src="https://raw.githubusercontent.com/nftSub/nftSub-sdk/main/images/live-on-mainnet.png" alt="Live on Mainnet" />
 
 **nftSub is now deployed and operational on mainnet!** Build production-ready subscription services on Base, BSC, Avalanche, and Sonic.
 
